@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobonga - Painel do atendente</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu_client.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu_atendente.css') }}" />
+    <script src="{{ url_for('static', filename='js/menu_atendente.js') }}" defer></script>
+</head>
+
+<body id="menu_atendente_page" data-comanda-id="{{ comanda_selecionada.id if comanda_selecionada else '' }}"
+    data-comanda-total="{{ '%.2f'|format(comanda_selecionada.total) if comanda_selecionada else '' }}">
+    <div id="wrap">
+
+        <div id="header_frame">
+            <img src="{{ url_for('serve_logo') }}" alt="Logo" id="logo_restaurant">
+            <p id="nome_restaurant">Painel do atendente</p>
+            <div id="user_info">
+                <p id="texto_ola">Atendente: <strong>{{ funcionario.nome }}</strong></p>
+                <a href="{{ url_for('logout') }}" id="btn_sair">
+                    <span class="material-symbols-outlined">logout</span> Sair
+                </a>
+            </div>
+        </div>
+
+        <div id="main_content">
+
+            <div id="secao_mesas">
+                <h2 class="titulo_secao">Comandas Ativas</h2>
+
+                <form action="{{ url_for('criar_comanda') }}" method="POST" id="form_criar_comanda">
+                    <input type="number" name="numero_mesa" placeholder="Nº da Mesa" required min="1">
+                    <button type="submit" id="btn_criar">
+                        <span class="material-symbols-outlined">add</span> Abrir Mesa
+                    </button>
+                </form>
+
+                <div class="grid_mesas">
+                    {% for c in comandas_abertas %}
+                    <a href="{{ url_for('ver_painel_menu_atendente', comanda_id=c.id) }}"
+                        class="card_mesa {% if comanda_selecionada and comanda_selecionada.id == c.id %}ativa{% endif %}">
+                        <span class="Mesa_num">Mesa {{ c.numero_mesa }}</span>
+                        <span class="Mesa_total">R$ {{ "%.2f"|format(c.total) }}</span>
+                    </a>
+                    {% else %}
+                    <p class="empty_msg">Nenhuma mesa ativa no momento.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="secao_detalhes_comanda">
+                {% if comanda_selecionada %}
+                <h2 class="titulo_secao">Mesa {{ comanda_selecionada.numero_mesa }} - Detalhes</h2>
+
+                <div class="sub_bloco">
+                    <h3>Lançar Item</h3>
+                    <form action="{{ url_for('menu_atendente_adicionar_item', comanda_id=comanda_selecionada.id) }}"
+                        method="POST" id="form_lancar_item">
+                        <select name="produto_id" required>
+                            <option value="" disabled selected>Selecione o produto...</option>
+                            {% for produto in cardapio %}
+                            <option value="{{ produto.id }}">{{ produto.nome }} - R$ {{ "%.2f"|format(produto.preco) }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <input type="number" name="quantidade" value="1" min="1" required>
+                        <button type="submit" class="btn_lancar">Adicionar</button>
+                    </form>
+                </div>
+
+                <div class="lista_itens_comanda">
+                    <h3>Consumo Atual</h3>
+                    <div class="scroll_itens">
+                        {% for item_comanda in comanda_selecionada.itens %}
+                        <div class="item_linha">
+                            <span>{{ item_comanda.quantidade }}x - {{ item_comanda.nome }}</span>
+                            <span class="preco_item">R$ {{ "%.2f"|format(item_comanda.preco * item_comanda.quantidade)
+                                }}</span>
+                        </div>
+                        {% else %}
+                        <p class="empty_msg">Nenhum item lançado nesta mesa.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="comanda_footer">
+                    <div class="total_box">
+                        <span>Total:</span>
+                        <span>R$ {{ "%.2f"|format(comanda_selecionada.total) }}</span>
+                    </div>
+
+                    <form id="form_fechar_comanda"
+                        action="{{ url_for('fechar_comanda', comanda_id=comanda_selecionada.id) }}" method="POST">
+                        <button type="submit" id="btn_encerrar"><span class="material-symbols-outlined">lock</span>
+                            Encerrar Consumo</button>
+                    </form>
+                    <p class="aviso_caixa">Esta ação impede novos pedidos. A liquidação financeira deve ser feita no
+                        Caixa.</p>
+                </div>
+
+                {% else %}
+                <div class="nenhuma_selecao">
+                    <span class="material-symbols-outlined grande">restaurant_menu</span>
+                    <p>Selecione uma mesa ao lado para gerenciar os pedidos ou encerrar o consumo.</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================================ pop up modal escondido ============================================================ -->
+
+    <div id="modalFechar" class="modal hidden">
+        <div class="modal-content">
+            <label>Forma de pagamento</label>
+            <select name="payment_method">
+                <option value="">Selecione...</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="PIX">PIX</option>
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="Cartão de Débito">Cartão de Débito</option>
+            </select>
+            <label>Valor recebido</label>
+            <input type="number" id="amount_received" name="amount_received" step="0.01">
+            <p>Troco<strong id="change_amount">R$ 0,00</strong></p>
+            <div class="buttons">
+                <button type="button" id="cancelarFechar">Cancelar</button>
+                <button type="button" id="confirmarFechar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

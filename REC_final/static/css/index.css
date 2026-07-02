@@ -1,0 +1,116 @@
+:root {
+    --vermelho_primario: #841218;
+    --vermelho_secundario: #731D22;
+    --vermelho_terciario: #2f0506;
+    --vermelho_quaternario: #561e1d;
+    --cor_complementar_1: #170E0F;
+    --cor_complementar_2: #171414;
+    --cor_complementar_3: #D6BDBD;
+}
+
+body {
+    margin: 0;
+}
+
+#home_page {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(var(--vermelho_quaternario), var(--vermelho_terciario));
+    background-color: var(--vermelho_terciario);
+    min-height: 100vh;
+    padding: 2% 0;
+}
+
+#wrap {
+    width: min(60vw, 960px);
+    min-height: auto;
+    padding-top: 2%;
+}
+
+#header_frame {
+    background-color: var(--vermelho_primario);
+    height: 16vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    user-select: none;
+}
+
+#logo_restaurant {
+    padding: 2%;
+    padding-left: 3%;
+    width: 12%;
+    height: auto;
+}
+
+#nome_restaurant {
+    padding-left: 5%;
+    font-size: 5vh;
+    color: var(--cor_complementar_3);
+}
+
+#login_cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 2vw;
+}
+
+#div_login, #div_sing_up {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.5vw;
+    padding: 0.5vw;
+}
+
+#div_login:hover, #div_sing_up:hover {
+    background-color: var(--vermelho_secundario);
+    border-radius: 0.3vw;
+}
+
+.material-symbols-outlined {
+    font-size: 2.5vh;
+    color: var(--cor_complementar_3);
+    margin: 0;
+    margin-right: 0.2vw;
+}
+
+#texto_entrar {
+    font-size: 2.5vh;
+    color: var(--cor_complementar_3);
+    margin: 0;
+    margin-right: 0.5vw;
+}
+
+#texto_sing_up {
+    font-size: 2.5vh;
+    color: var(--cor_complementar_3);
+    margin: 0;
+}
+
+#restaurant_wrap {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2vh;
+    background-color: var(--vermelho_secundario);
+    padding: 3rem 2rem;
+    box-sizing: border-box;
+}
+
+#restaurant_info {
+    width: min(50vw, 760px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
+    color: var(--cor_complementar_3);
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}

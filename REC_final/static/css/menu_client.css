@@ -1,0 +1,303 @@
+:root {
+    --vermelho_primario: #841218;
+    --vermelho_secundario: #731D22;
+    --vermelho_terciario: #2f0506;
+    --vermelho_quaternario: #561e1d;
+    --cor_complementar_1: #170E0F;
+    --cor_complementar_2: #171414;
+    --cor_complementar_3: #D6BDBD;
+}
+
+#menu_client_page {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(var(--vermelho_quaternario), var(--vermelho_terciario));
+    color: var(--cor_complementar_3);
+}
+
+
+#wrap {
+    width: 80vw;
+    height: 96vh;
+    padding-top: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#header_frame {
+    background-color: var(--vermelho_primario);
+    height: 14vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#logo_restaurant {
+    padding: 2%;
+    padding-left: 3%;
+    width: 8%;
+    height: auto;
+}
+
+#nome_restaurant {
+    padding-left: 3%;
+    font-size: 4vh;
+    color: var(--cor_complementar_3);
+    font-weight: bold;
+    margin: 0;
+}
+
+#user_info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 2vw;
+    gap: 1.5vw;
+}
+
+#texto_ola {
+    font-size: 2.5vh;
+    color: var(--cor_complementar_3);
+    margin: 0;
+}
+
+#btn_sair {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-size: 2.2vh;
+    color: var(--cor_complementar_3);
+    text-decoration: none;
+    background-color: var(--vermelho_terciario);
+    padding: 0.6vw 1.2vw;
+    border-radius: 0.3vw;
+    transition: background-color 0.2s;
+}
+
+#btn_sair:hover {
+    background-color: var(--cor_complementar_2);
+}
+
+
+#main_content {
+    height: 78vh;
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr; /* Divisão proporcional das caixas */
+    gap: 2vw;
+    padding: 2vw;
+    background-color: var(--vermelho_secundario);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.titulo_secao {
+    font-size: 3.2vh;
+    color: var(--cor_complementar_3);
+    margin-top: 0;
+    margin-bottom: 2vh;
+    border-bottom: 2px solid var(--vermelho_primario);
+    padding-bottom: 1vh;
+}
+
+
+#secao_cardapio {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.grid_cardapio {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2vw;
+    overflow-y: auto; 
+    padding-right: 0.5vw;
+}
+
+
+.card_item {
+    background-color: var(--vermelho_quaternario);
+    border: 1px solid var(--vermelho_primario);
+    border-radius: 6px;
+    padding: 1.2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card_info h3 {
+    margin: 0 0 1vh 0;
+    font-size: 2.4vh;
+    color: #fff;
+}
+
+.card_info .desc {
+    font-size: 1.8vh;
+    color: var(--cor_complementar_3);
+    opacity: 0.9;
+    margin-bottom: 1.5vh;
+}
+
+.card_info .preco {
+    font-size: 2.2vh;
+    font-weight: bold;
+    color: var(--cor_complementar_3);
+}
+
+.btn_add {
+    margin-top: 1.5vh;
+    width: 100%;
+    background-color: var(--vermelho_primario);
+    color: var(--cor_complementar_3);
+    border: none;
+    padding: 1vh;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vw;
+    font-size: 2vh;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn_add:hover {
+    background-color: var(--vermelho_terciario);
+}
+
+
+#secao_comanda {
+    background-color: var(--cor_complementar_1);
+    border: 2px solid var(--vermelho_primario);
+    border-radius: 8px;
+    padding: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+.lista_comanda {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 1.5vh;
+    padding-right: 0.3vw;
+}
+
+
+.comanda_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--vermelho_terciario);
+    border: 1px solid var(--vermelho_quaternario);
+    padding: 1vw;
+    border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.comanda_info h4 {
+    margin: 0 0 0.5vh 0;
+    font-size: 2.2vh;
+    color: var(--cor_complementar_3);
+}
+
+.comanda_info span {
+    font-size: 1.8vh;
+    color: var(--cor_complementar_3);
+    opacity: 0.8;
+}
+
+.btn_remove {
+    background: none;
+    border: none;
+    color: #ff5252;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.btn_remove:hover {
+    color: #ff1a1a;
+    transform: scale(1.1);
+}
+
+
+.comanda_footer {
+    border-top: 2px solid var(--vermelho_quaternario);
+    padding-top: 1.5vh;
+}
+
+.total_box {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.6vh;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1.5vh;
+}
+
+#btn_pagamento {
+    width: 100%;
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    padding: 1.2vh;
+    border-radius: 5px;
+    font-size: 2.2vh;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vw;
+    transition: background-color 0.2s;
+}
+
+#btn_pagamento:hover {
+    background-color: #1e5c39;
+}
+
+.aviso_garcom {
+    text-align: center;
+    font-size: 1.6vh;
+    color: var(--cor_complementar_3);
+    margin-top: 1vh;
+    margin-bottom: 0;
+    opacity: 0.7;
+}
+
+.empty_msg {
+    font-style: italic;
+    color: var(--cor_complementar_3);
+    opacity: 0.6;
+    font-size: 2vh;
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--vermelho_primario);
+    border-radius: 10px;
+}

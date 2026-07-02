@@ -1,0 +1,393 @@
+:root {
+    --vermelho_primario: #841218;
+    --vermelho_secundario: #731D22;
+    --vermelho_terciario: #2f0506;
+    --vermelho_quaternario: #561e1d;
+    --cor_complementar_1: #170E0F;
+    --cor_complementar_2: #171414;
+    --cor_complementar_3: #D6BDBD;
+    --amarelo_pagamento: #FFD700;
+    --amarelo_pagamento2: #FFA500;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+#menu_atendente_page {
+    display: grid;
+    justify-items: center;
+    background: linear-gradient(var(--vermelho_quaternario), var(--vermelho_terciario));
+    background-color: var(--vermelho_terciario);
+    width: 100%;
+    height: 100%;
+}
+
+#wrap {
+    width: 85vw;
+    height: 96vh;
+    padding-top: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- HEADER --- */
+#header_frame {
+    background-color: var(--vermelho_primario);
+    height: 12vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+#logo_restaurant {
+    padding-left: 3%;
+    height: 60%;
+    width: auto;
+}
+
+#nome_restaurant {
+    padding-left: 3%;
+    font-size: 3.5vh;
+    color: var(--cor_complementar_3);
+    font-weight: bold;
+    margin: 0;
+}
+
+#user_info {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 2vw;
+    gap: 1.5vw;
+}
+
+#texto_ola {
+    font-size: 2.2vh;
+    color: var(--cor_complementar_3);
+    margin: 0;
+}
+
+#btn_sair {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-size: 2vh;
+    color: var(--cor_complementar_3);
+    text-decoration: none;
+    background-color: var(--vermelho_terciario);
+    padding: 0.5vw 1vw;
+    border-radius: 0.3vw;
+    transition: 0.2s;
+}
+
+#btn_sair:hover { background-color: var(--cor_complementar_2); }
+
+/* --- CONTEÚDO PRINCIPAL --- */
+#main_content {
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1.2fr 1.8fr;
+    gap: 2vw;
+    padding: 2vw;
+    background-color: var(--vermelho_secundario);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.titulo_secao {
+    font-size: 3vh;
+    color: var(--cor_complementar_3);
+    margin-top: 0;
+    margin-bottom: 2vh;
+    border-bottom: 2px solid var(--vermelho_primario);
+    padding-bottom: 1vh;
+}
+
+/* ESQUERDA: LISTA DE MESAS / ABRIR COMANDA */
+#secao_mesas {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#form_criar_comanda {
+    display: flex;
+    gap: 0.5vw;
+    margin-bottom: 2vh;
+}
+
+#form_criar_comanda input {
+    flex: 1;
+    background-color: var(--cor_complementar_2);
+    border: 1px solid var(--vermelho_primario);
+    border-radius: 4px;
+    color: #fff;
+    padding: 0.8vw;
+    font-size: 2vh;
+}
+
+#btn_criar {
+    background-color: var(--vermelho_primario);
+    color: var(--cor_complementar_3);
+    border: none;
+    padding: 0 1.5vw;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.3vw;
+}
+#btn_criar:hover { background-color: var(--vermelho_terciario); }
+
+.grid_mesas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1vw;
+    overflow-y: auto;
+}
+
+.card_mesa {
+    background-color: var(--vermelho_quaternario);
+    border: 1px solid var(--vermelho_primario);
+    border-radius: 6px;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--cor_complementar_3);
+    transition: 0.2s;
+}
+
+.card_mesa:hover { background-color: var(--vermelho_primario); }
+.card_mesa.ativa {
+    background-color: var(--cor_complementar_3);
+    color: var(--vermelho_terciario);
+    border-color: #fff;
+    font-weight: bold;
+}
+.card_mesa.aguardando_pagamento {
+    background-color: var(--amarelo_pagamento);
+    color: var(--vermelho_terciario);
+    border-color: var(--amarelo_pagamento2);
+    border-width: 2px;
+    font-weight: bold;
+    animation: pulsa-amarela 1.5s ease-in-out infinite;
+}
+@keyframes pulsa-amarela {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.Mesa_num { font-size: 2.2vh; }
+.Mesa_total { font-size: 1.8vh; opacity: 0.9; margin-top: 0.5vh; }
+
+/* DIREITA: DETALHES DA MESA SELECIONADA */
+#secao_detalhes_comanda {
+    background-color: var(--cor_complementar_1);
+    border: 2px solid var(--vermelho_primario);
+    border-radius: 8px;
+    padding: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    height: 92%;
+}
+
+.sub_bloco {
+    background-color: var(--vermelho_terciario);
+    padding: 1vw;
+    border-radius: 6px;
+    margin-bottom: 2vh;
+}
+
+.sub_bloco h3, .lista_itens_comanda h3 {
+    margin: 0 0 1vh 0;
+    font-size: 2vh;
+    color: var(--cor_complementar_3);
+}
+
+#form_lancar_item {
+    display: flex;
+    gap: 0.8vw;
+}
+
+#form_lancar_item select {
+    flex: 2;
+    background-color: var(--cor_complementar_2);
+    border: 1px solid var(--vermelho_quaternario);
+    color: #fff;
+    padding: 0.5vw;
+    border-radius: 4px;
+}
+
+#form_lancar_item input {
+    width: 60px;
+    background-color: var(--cor_complementar_2);
+    border: 1px solid var(--vermelho_quaternario);
+    color: #fff;
+    padding: 0.5vw;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.btn_lancar {
+    background-color: var(--cor_complementar_1);
+    color: var(--cor_complementar_3);
+    border: none;
+    padding: 0.5vw 1.5vw;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Área de Rolagem do Consumo */
+.lista_itens_comanda {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+}
+
+.scroll_itens {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: var(--cor_complementar_2);
+    padding: 1vw;
+    border-radius: 6px;
+}
+
+.item_linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vh 0;
+    border-bottom: 1px solid var(--vermelho_terciario);
+    font-size: 1.9vh;
+}
+
+/* Footer / Botão de fechar conta */
+.comanda_footer {
+    border-top: 2px solid var(--vermelho_quaternario);
+    padding-top: 1.5vh;
+}
+
+.total_box {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.6vh;
+    font-weight: bold;
+    color: var(--cor_complementar_3);
+    margin-bottom: 1.5vh;
+}
+
+#btn_encerrar {
+    width: 100%;
+    background-color: var(--vermelho_primario); /* Laranja escuro/combustão para ação crítica de fechar */
+    color: var(--cor_complementar_3);
+    border: none;
+    padding: 1.2vh;
+    border-radius: 5px;
+    font-size: 2.2vh;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vw;
+    transition: 0.2s;
+}
+
+#btn_encerrar:hover { background-color: var(--vermelho_secundario); }
+
+.aviso_caixa {
+    text-align: center;
+    font-size: 1.5vh;
+    color: var(--cor_complementar_3);
+    margin-top: 1vh;
+    margin-bottom: 0;
+    opacity: 0.6;
+}
+
+.nenhuma_selecao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    opacity: 0.5;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--vermelho_primario); border-radius: 10px; }
+
+/* pop up modal escondido */
+
+/* ================= MODAL ================= */
+
+.hidden{
+    display:none !important;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.55);
+
+    z-index:999;
+}
+
+.modal-content{
+
+    width:430px;
+    max-width:90%;
+
+    background:var(--cor_complementar_1);
+
+    border:2px solid var(--vermelho_primario);
+
+    border-radius:10px;
+
+    padding:25px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.modal-content label{
+    font-weight:bold;
+}
+
+.modal-content select,
+.modal-content input{
+
+    padding:10px;
+
+    border-radius:6px;
+
+    border:1px solid #ccc;
+}
+
+.buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+}

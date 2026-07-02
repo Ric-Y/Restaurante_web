@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobonga - Cardápio e Comanda</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu_client.css') }}" /> 
+    <script src="{{ url_for('static', filename='js/menu_client.js') }}" defer></script>
+</head>
+<body id="menu_client_page">
+    <div id="wrap">
+        
+        <div id="header_frame">
+            <img src="{{ url_for('serve_logo') }}" alt="Erro_logo" id="logo_restaurant">
+            <p id="nome_restaurant">Restaurante Mobonga</p>
+            <div id="user_info">
+                <p id="texto_ola">Olá, <strong>{{ cliente.nome }}</strong></p>
+                <p class="mesa_info">Mesa: <strong>{{ mesa_id }}</strong></p>
+                <a href="{{ url_for('logout') }}" id="btn_sair">
+                    <span class="material-symbols-outlined">logout</span> Sair
+                </a>
+            </div>
+        </div>
+        <div id="main_content">
+            <div id="secao_cardapio">
+                <h2 class="titulo_secao">Cardápio</h2>
+                <div class="grid_cardapio">
+                    {% for item in cardapio %}
+                    <div class="card_item">
+                        <div class="card_info">
+                            <h3>{{ item.nome }}</h3>
+                            <p class="desc">{{ item.descricao }}</p>
+                            <span class="preco">R$ {{ "%.2f"|format(item.preco) }}</span>
+                        </div>
+                        <form action="{{ url_for('adicionar_item', item_id=item.id, mesa_id=mesa_id) }}" method="POST">
+                            <button type="submit" class="btn_add">
+                                <span class="material-symbols-outlined">add_shopping_cart</span> Adicionar
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p class="empty_msg">Nenhum item disponível no momento.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="secao_comanda">
+                <h2 class="titulo_secao">Sua Comanda</h2>
+                
+                <div class="lista_comanda">
+                    {% for item_comanda in comanda.itens %}
+                    <div class="comanda_item">
+                        <div class="comanda_info">
+                            <h4>{{ item_comanda.nome }}</h4>
+                            <span>Qtd: {{ item_comanda.quantidade }} | R$ {{ "%.2f"|format(item_comanda.preco * item_comanda.quantidade) }}</span>
+                        </div>
+                        <form action="{{ url_for('remover_item', item_id=item_comanda.id, mesa_id=mesa_id) }}" method="POST">
+                            <button type="submit" class="btn_remove" title="Remover item">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p class="empty_msg">Sua comanda está vazia.</p>
+                    {% endfor %}
+                </div>
+                <div class="comanda_footer">
+                    <div class="total_box">
+                        <span>Total:</span>
+                        <span>R$ {{ "%.2f"|format(comanda.total) }}</span>
+                    </div>
+
+                    {% if comanda.itens %}
+                    <form id="form_pagamento" action="{{ url_for('solicitar_pagamento', mesa_id=mesa_id) }}" method="POST">
+                        <button type="submit" id="btn_pagamento">
+                            <span class="material-symbols-outlined">payments</span> Solicitar Conta
+                        </button>
+                    </form>
+                    <p class="aviso_garcom">Um garçom será notificado para fechar sua mesa.</p>
+                    {% else %}
+                    <button id="btn_pagamento" disabled style="opacity: 0.5; cursor: not-allowed;">
+                        Comanda Vazia
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
